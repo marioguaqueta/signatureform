@@ -1,0 +1,57 @@
+  {% load crispy_forms_tags %}
+  {% load static %}
+  <html>
+  <head>
+  	<title>Registro de datos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div id="outer" style="width:100%">
+      <div id="inner">
+        <br>
+        <br>
+        <center>
+        <h1>Ingresar</h1>
+        </center>
+        {% if notvalidcredentials %}
+        <br>
+        <div class="alert alert-danger">
+          <strong>Error!</strong> Las credenciales no son validas.
+        </div>
+        {% endif %}
+        {% if notvaliddata %}
+        <br>
+        <div class="alert alert-danger">
+          <strong>Error!</strong> Los datos no son validos.
+        </div>
+        {% endif %}
+        <br>
+        <br>
+        <form method="POST">
+          {% csrf_token %}
+          {% crispy loginuser %}
+          {{ loginuser.errors }}
+          {{ loginuser.non_field_errors }}
+          <center>
+          <input class="btn btn-success" type="submit" value="Ingresar" >
+          <input class="btn btn-info" onclick="window.location.href='../register'" type="button" value="Registrar" >
+          </center>
+        </form>
+      </div>
+    </div>
+  </body>
+  </html>
+
+  <style type="text/css">
+  #inner {
+    display: table;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+</style>
+
+
+
