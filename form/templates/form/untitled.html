@@ -1,0 +1,14 @@
+
+        {{ registeruser.media }}
+        <form action=" " method="POST">
+          {% csrf_token %}
+          {% crispy registeruser %}
+          {{ registeruser.errors }}
+          {{ registeruser.non_field_errors }}
+    <input type="submit" value="Save"/>
+    {% csrf_token %}
+
+          <center>
+          <input class="btn btn-success" type="submit" value="Registrar" >
+          </center>
+        </form>

@@ -42,29 +42,23 @@ def register(request):
 
 def index(request):
     registeruser=RegisterSignatureForm()
-    signature=SignatureForm()
-    print(signature)
-    if request.method == "POST":
-        registerpost = RegisterSignatureForm(request.POST)
-        signaturepost=SignatureForm(request.POST)
-        if registerpost.is_valid() and signaturepost.is_valid():
-          signature = form.cleaned_data.get('signature')
-          if signature:
-            signature_picture = draw_signature(signature)
-            user = User.objects.create_user(username=registerpost.cleaned_data.get('email'),
-                                 email=registerpost.cleaned_data.get('email'),
-                                 first_name = registerpost.cleaned_data.get('first_name'),
-                                 last_name = registerpost.cleaned_data.get('last_name'))
-            user.signature = signature_picture
-           # user = User.objects.create_user(username=registerpost.cleaned_data.get('username'),
-           #                       email=registerpost.cleaned_data.get('email'),
-           #                       password=registerpost.cleaned_data.get('password'),
-           #                       first_name = registerpost.cleaned_data.get('first_name'),
-           #                       last_name = registerpost.cleaned_data.get('last_name'))
-            return redirect('index')
-        else:
-            return render (request, 'form/registersignature.html',{'registeruser':registeruser,'signature':signature, 'notvaliddata':True})
-    return render (request, 'form/registersignature.html',{'registeruser':registeruser,'signature':signature})  
+
+    # if request.method == "POST":
+    #     registerpost = RegisterSignatureForm(request.POST)
+    #     print(registerpost.errors)
+    #     if registerpost.is_valid():
+    #       signature = registerpost.cleaned_data.get('signature')
+    #       if signature:
+    #         signature_picture = draw_signature(signature)
+    #         user = User.objects.create_user(username=registerpost.cleaned_data.get('email'),
+    #                              email=registerpost.cleaned_data.get('email'),
+    #                              first_name = registerpost.cleaned_data.get('first_name'),
+    #                              last_name = registerpost.cleaned_data.get('last_name'))
+    #         user.signature = signature_picture
+    #         return redirect('index')
+    #     else:
+    #         return render (request, 'form/registersignature.html',{'registeruser':registeruser, 'notvaliddata':True})
+    return render (request, 'form/registersignature.html',{'registeruser':registeruser})  
 
 
 

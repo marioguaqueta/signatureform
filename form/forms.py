@@ -7,6 +7,8 @@ from jsignature.forms import JSignatureField
 from jsignature.widgets import JSignatureWidget
 
 
+
+
 #Formulario para el ingreso de usuario
 class LoginForm(forms.Form):
 
@@ -68,6 +70,8 @@ class RegisterForm(forms.ModelForm):
 
 
 class RegisterSignatureForm(forms.ModelForm):
+
+
     #Se define la clase Meta para elegir el modelo que se va a utilizar
     class Meta:
         model = User 
@@ -102,7 +106,7 @@ class RegisterSignatureForm(forms.ModelForm):
                 Field('city',css_class='form-control'),
                 Field('address', css_class='form-control'),
                 Field('birthDate',css_class='form-control'),
-                Field('gender',css_class='form-control')
+                Field('gender',css_class='form-control'),
                 )
                 
         )
@@ -117,10 +121,6 @@ class RegisterSignatureForm(forms.ModelForm):
         self.fields['birthDate'].required=True
         self.fields['gender'].required=True
 
-
-
-class SignatureForm(forms.Form):
-    signature = JSignatureField(widget=JSignatureWidget(jsignature_attrs={'color': '#000000','decor-color': '#000000'}))
 
 
 
