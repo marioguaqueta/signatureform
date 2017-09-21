@@ -10,368 +10,83 @@
   <link href="{% static 'css/jquery-signature.css' %}" rel="stylesheet"/>
   <script type="text/javascript" src="{% static 'js/jquery-signature.js' %}"></script>
   <style>
-  .kbw-signature { width: 400px; height: 200px; }
-  #inner { display: table; margin: 0 auto; width: 50%; }
-</style>
+    .kbw-signature { width: 400px; height: 200px; }
+    #inner { display: table; margin: 0 auto; width: 50%; }
+    input {
+      border: 0;
+      outline: 0;
+      border-bottom: 1px solid black;
+    }
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+
+  </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 
 </head>
 <body>
 
   <div id="outer" style="width:100%">
     <div id="inner">
+      <h3>AUTORIZACIÓN DE DESCUENTO POR NÓMINA PARA FINANCIACIÓN DE PRIMAS Y RENOVACIONES</h3>
+
+
       <br>
       <br>
-      <center>
-        <h1>Registro de usuario</h1>
-      </center>
-      {% if notvaliddata %}
-      <br>
-      <div class="alert alert-danger">
-        <strong>Error!</strong> Los datos no son validos.
-      </div>
-      {% endif %}
-      <br>
-      <br>
+
 
       {{ registeruser.media }}
-      <form id="formData" method="POST">
+      <form action="." method="POST">
         {% csrf_token %}
-        {% crispy registeruser %}
-        {{ registeruser.errors }}
-        {{ registeruser.non_field_errors }}
-        <center>
-          <div id="sig"></div>
-          <p style="clear: both;"><input type="button" class="btn btn-warning" id="clear" value="Borrar"><br> 
-            {% csrf_token %}
+
+        <p style="text-align: justify; width: 80%">
+          Yo&nbsp;{{registeruser.name}}&nbsp;mayor  de  edad,  identificado  (a)  con  la CC.{{registeruser.identification}}&nbsp; autorizo a Capitalizadora Bolívar S.A ó Seguros Bolívar S.A ó  
+          Seguros  Comerciales  Bolívar  S.A,  Asistencia  Bolívar  S.A.  ó  S
+          ociedades  Bolívar  S.A  ó  Seguridad 
+          Cia. Administradora de Fondos de Inversión S.A ó Prevención Técnica Ltda. Para que  descuente 
+          de mi salario, comisiones mensuales  y/o prestaciones sociales definitivas el valor de las primas de 
+          los seguros ofrecidos por S
+          eguros Bolívar S.A y Seguros Comerciales Bolívar S.A
+          <br>
+          <div  class="row">
+
+            <center><strong class="col-xs-1">Firma:</strong><div class="col-xs-6">{{registeruser.signature}}</div></center>
+          </div>
+          C.C No:  {{registeruser.identificationfrom}}
+          <br>
+          <br>
+          Código: {{registeruser.code}} ó Clave: {{registeruser.key}} 
+          <br>
+          <br>
+          Representante legal de la agencia:{{registeruser.legal_rep}} 
+          <br>
+          NIT: {{registeruser.nit}} 
+          <br>
+          <div  class="row">
+
+           <center> <strong class="col-xs-1">Firma Representante Legal:  </strong><div class="col-xs-6">{{registeruser.signature_rep}}</div></center>
+          </div>
 
 
-            <input class="btn btn-success" onclick="sendData()" value="Registrar" >
-          </center>
-        </form>
-      </div>
+
+
+        </p>
+        <button  type="submit" class="btn btn-success">Enviar</button>
+      </form>
     </div>
+  </div>
 
 
-<!--   <div id="sig"></div>
- <p style="clear: both;"><button id="clear">Borrar</button> --> 
-<!--     <button id="json">To JSON</button> <button id="svg">To SVG</button></p>
--->  </body>
+</body>
 </html>
 
-<script>
-
-function sendData(){
-
-  alert($("#formData").serialize());
-
-  $.ajax({
-    method: 'POST',
-    url: '../index/',
-    data: {'form': $("#formData").serialize(),
-    'signature':$('#sig').signature('toJSON'),
-    'csrfmiddlewaretoken': getCookie('csrftoken'),
-  },
-  success: function (data) {
-
-  },
-  error: function (data) {
-    alert('Error de conexión');
-  }
-});
 
 
-}
-
-$(document).ready(function() {
-  $('#id_birthDate').datepicker({ format: "yyyy/mm/dd" });
-}); 
-
-$(function() {
-  $('#sig').signature();
-  $('#clear').click(function() {
-    $('#sig').signature('clear');
-  });
-  $('#json').click(function() {
-    alert($('#sig').signature('toJSON'));
-  });
-  $('#svg').click(function() {
-    alert($('#sig').signature('toSVG'));
-  });
-});
-
-
-
-
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
-          }
-        }
-        return cookieValue;
-      }
-    </script>
-
-
-
-
-
-    <script type="text/javascript">
-
-(function($) { // Hide scope, no $ conflict
-
-  var signatureOverrides = {
-
-  // Global defaults for signature
-  options: {
-    distance: 0, // Minimum distance for a drag
-    background: '#ffffff', // Colour of the background
-    color: '#000000', // Colour of the signature
-    thickness: 2, // Thickness of the lines
-    guideline: false, // Add a guide line or not?
-    guidelineColor: '#a0a0a0', // Guide line colour
-    guidelineOffset: 50, // Guide line offset from the bottom
-    guidelineIndent: 10, // Guide line indent from the edges
-    notAvailable: 'Your browser doesn\'t support signing', // Error message when no canvas
-    syncField: null, // Selector for synchronised text field
-    change: null // Callback when signature changed
-  },
-
-  /* Initialise a new signature area. */
-  _create: function() {
-    this.element.addClass(this.widgetFullName || this.widgetBaseClass);
-    try {
-      this.canvas = $('<canvas width="' + this.element.width() + '" height="' +
-        this.element.height() + '">' + this.options.notAvailable + '</canvas>')[0];
-      this.element.append(this.canvas);
-      this.ctx = this.canvas.getContext('2d');
-    }
-    catch (e) {
-      $(this.canvas).remove();
-      this.resize = true;
-      this.canvas = document.createElement('canvas');
-      this.canvas.setAttribute('width', this.element.width());
-      this.canvas.setAttribute('height', this.element.height());
-      this.canvas.innerHTML = this.options.notAvailable;
-      this.element.append(this.canvas);
-      if (G_vmlCanvasManager) { // Requires excanvas.js
-        G_vmlCanvasManager.initElement(this.canvas);
-      }
-      this.ctx = this.canvas.getContext('2d');
-    }
-    this._refresh(true);
-    this._mouseInit();
-  },
-
-  /* Refresh the appearance of the signature area.
-  @param  init  (boolean, internal) true if initialising */
-  _refresh: function(init) {
-    if (this.resize) {
-      var parent = $(this.canvas);
-      $('div', this.canvas).css({width: parent.width(), height: parent.height()});
-    }
-    this.ctx.fillStyle = this.options.background;
-    this.ctx.strokeStyle = this.options.color;
-    this.ctx.lineWidth = this.options.thickness;
-    this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = 'round';
-    this.clear(init);
-  },
-
-  /* Clear the signature area.
-  @param  init  (boolean, internal) true if initialising */
-  clear: function(init) {
-    this.ctx.clearRect(0, 0, this.element.width(), this.element.height());
-    if (this.options.guideline) {
-      this.ctx.save();
-      this.ctx.strokeStyle = this.options.guidelineColor;
-      this.ctx.lineWidth = 1;
-      this.ctx.beginPath();
-      this.ctx.moveTo(this.options.guidelineIndent,
-        this.element.height() - this.options.guidelineOffset);
-      this.ctx.lineTo(this.element.width() - this.options.guidelineIndent,
-        this.element.height() - this.options.guidelineOffset);
-      this.ctx.stroke();
-      this.ctx.restore();
-    }
-    this.lines = [];
-    if (!init) {
-      this._changed();
-    }
-  },
-
-  /* Synchronise changes and trigger change event.
-  @param  event  (Event) the triggering event */
-  _changed: function(event) {
-    if (this.options.syncField) {
-      $(this.options.syncField).val(this.toJSON());
-    }
-    this._trigger('change', event, {});
-  },
-
-  /* Custom options handling.
-  @param  options  (object) the new option values */
-  _setOptions: function(options) {
-    if (this._superApply) {
-      this._superApply(arguments); // Base widget handling
-    }
-    else {
-      $.Widget.prototype._setOptions.apply(this, arguments); // Base widget handling
-    }
-    this._refresh();
-  },
-
-  /* Determine if dragging can start.
-     @param  event  (Event) the triggering mouse event
-     @return  (boolean) true if allowed, false if not */
-     _mouseCapture: function(event) {
-      return !this.options.disabled;
-    },
-
-  /* Start a new line.
-  @param  event  (Event) the triggering mouse event */
-  _mouseStart: function(event) {
-    this.offset = this.element.offset();
-    this.offset.left -= document.documentElement.scrollLeft || document.body.scrollLeft;
-    this.offset.top -= document.documentElement.scrollTop || document.body.scrollTop;
-    this.lastPoint = [this._round(event.clientX - this.offset.left),
-    this._round(event.clientY - this.offset.top)];
-    this.curLine = [this.lastPoint];
-    this.lines.push(this.curLine);
-  },
-
-  /* Track the mouse.
-  @param  event  (Event) the triggering mouse event */
-  _mouseDrag: function(event) {
-    var point = [this._round(event.clientX - this.offset.left),
-    this._round(event.clientY - this.offset.top)];
-    this.curLine.push(point);
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.lastPoint[0], this.lastPoint[1]);
-    this.ctx.lineTo(point[0], point[1]);
-    this.ctx.stroke();
-    this.lastPoint = point;
-  },
-
-  /* End a line.
-  @param  event  (Event) the triggering mouse event */
-  _mouseStop: function(event) {
-    if (this.curLine.length === 1) {
-      event.clientY += this.options.thickness;
-      this._mouseDrag(event);
-    }
-    this.lastPoint = null;
-    this.curLine = null;
-    this._changed(event);
-  },
-
-  /* Round to two decimal points.
-     @param  value  (number) the value to round
-     @return  (number) the rounded value */
-     _round: function(value) {
-      return Math.round(value * 100) / 100;
-    },
-
-  /* Convert the captured lines to JSON text.
-  @return  (string) the JSON text version of the lines */
-  toJSON: function() {
-    return '{"lines":[' + $.map(this.lines, function(line) {
-      return '[' + $.map(line, function(point) {
-        return '[' + point + ']';
-      }) + ']';
-    }) + ']}';
-  },
-
-  /* Convert the captured lines to SVG text.
-  @return  (string) the SVG text version of the lines */
-  toSVG: function() {
-    return '<?xml version="1.0"?>\n<!DOCTYPE svg PUBLIC ' +
-    '"-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n' +
-    '<svg xmlns="http://www.w3.org/2000/svg" width="15cm" height="15cm">\n' +
-    ' <g fill="' + this.options.background + '">\n' +
-    '   <rect x="0" y="0" width="' + this.canvas.width +
-    '" height="' + this.canvas.height + '"/>\n' +
-    '   <g fill="none" stroke="' + this.options.color + '" stroke-width="' +
-    this.options.thickness + '">\n'+
-    $.map(this.lines, function(line) {
-      return '      <polyline points="' +
-      $.map(line, function(point) { return point + ''; }).join(' ') + '"/>\n';
-    }).join('') +
-    '   </g>\n  </g>\n</svg>\n';
-  },
-
-  /* Draw a signature from its JSON description.
-     @param  sigJSON  (object) object with attribute lines
-                      being an array of arrays of points or
-                      (string) text version of the JSON */
-                      draw: function(sigJSON) {
-                        this.clear(true);
-                        if (typeof sigJSON === 'string') {
-                          sigJSON = $.parseJSON(sigJSON);
-                        }
-                        this.lines = sigJSON.lines || [];
-                        var ctx = this.ctx;
-                        $.each(this.lines, function() {
-                          ctx.beginPath();
-                          $.each(this, function(i) {
-                            ctx[i === 0 ? 'moveTo' : 'lineTo'](this[0], this[1]);
-                          });
-                          ctx.stroke();
-                        });
-                        this._changed();
-                      },
-
-  /* Determine whether or not any drawing has occurred.
-  @return  (boolean) true if not signed, false if signed */
-  isEmpty: function() {
-    return this.lines.length === 0;
-  },
-
-  /* Remove the signature functionality. */
-  _destroy: function() {
-    this.element.removeClass(this.widgetFullName || this.widgetBaseClass);
-    $(this.canvas).remove();
-    this.canvas = this.ctx = this.lines = null;
-    this._mouseDestroy();
-  }
-};
-
-if (!$.Widget.prototype._destroy) {
-  $.extend(signatureOverrides, {
-    /* Remove the signature functionality. */
-    destroy: function() {
-      this._destroy();
-      $.Widget.prototype.destroy.call(this); // Base widget handling
-    }
-  });
-}
-
-if ($.Widget.prototype._getCreateOptions === $.noop) {
-  $.extend(signatureOverrides, {
-    /* Restore the metadata functionality. */
-    _getCreateOptions: function() {
-      return $.metadata && $.metadata.get(this.element[0])[this.widgetName];
-    }
-  });
-}
-
-/* Signature capture and display.
-Depends on jquery.ui.widget, jquery.ui.mouse. */
-$.widget('kbw.signature', $.ui.mouse, signatureOverrides);
-
-// Make some things more accessible
-$.kbw.signature.options = $.kbw.signature.prototype.options;
-
-})(jQuery);
-
-</script>
+<!--  autorizo a Capitalizadora Bolívar S.A ó Seguros Bolívar S.A ó  
+Seguros  Comerciales  Bolívar  S.A,  Asistencia  Bolívar  S.A.  ó  S
+ociedades  Bolívar  S.A  ó  Seguridad 
+Cia. Administradora de Fondos de Inversión S.A ó Prevención Técnica Ltda. Para que  descuente 
+de mi salario, comisiones mensuales  y/o prestaciones sociales definitivas el valor de las primas de 
+los seguros ofrecidos por S
+eguros Bolívar S.A y Seguros Comerciales Bolívar S.A -->

@@ -7,8 +7,6 @@ from jsignature.forms import JSignatureField
 from jsignature.widgets import JSignatureWidget
 
 
-
-
 #Formulario para el ingreso de usuario
 class LoginForm(forms.Form):
 
@@ -124,12 +122,17 @@ class RegisterSignatureForm(forms.ModelForm):
 
 
 
-
-
-
-
-
-
+class SignatureForm(forms.Form):
+    name = forms.CharField()
+    identification = forms.CharField()
+    identificationfrom = forms.CharField(required=False)
+    signature = JSignatureField(widget=JSignatureWidget(jsignature_attrs={'color': '#000000', 'background-color':'#000000'}))
+    code = forms.CharField(required=False)
+    key = forms.CharField(required=False)
+    legal_rep = forms.CharField()
+    nit = forms.CharField()
+    signature_rep = JSignatureField(widget=JSignatureWidget(jsignature_attrs={'color': '#000000', 'background-color':'#000000'}))
+    
 
 
 

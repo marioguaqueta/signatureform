@@ -70,6 +70,59 @@ class User(AbstractUser):
         return self.email
 
 
+class AuthDiscountRouster(models.Model):
+
+    name = models.CharField(
+        max_length = 50,
+        verbose_name = 'Nombre',
+        )
+
+    identification = models.CharField(
+        max_length = 50,
+        verbose_name = 'Identificación',
+        )
+
+    signature = models.CharField(
+        max_length=15000,
+        null = True,
+        blank = True,
+        verbose_name = 'Firma'
+        )
+
+    code = models.CharField(
+        max_length = 50,
+        verbose_name = 'Codigo',
+        )
+
+    key = models.CharField(
+        max_length = 50,
+        verbose_name = 'Clave',
+        )
+
+    legal_rep = models.CharField(
+        max_length = 50,
+        verbose_name = 'Representante Legal',
+        )
+
+    nit = models.CharField(
+        max_length = 50,
+        verbose_name = 'Nit',
+        )
+
+    signature_rep = models.CharField(
+        max_length=15000,
+        null = True,
+        blank = True,
+        verbose_name = 'Firma Repesentante Legal'
+        )
+
+
+
+    def __str__(self):
+        return (self.name + ' ' + self.identification)
+
+
+
 
 
 

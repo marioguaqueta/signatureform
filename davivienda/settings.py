@@ -25,7 +25,7 @@ SECRET_KEY = '!zrheh3$$2t+lnaf+i^yk46_a)@h2o2sa^7s@=&4jkm4(%u5&h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.15']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'form',
     'crispy_forms',
-    'jsignature'
+    'jsignature',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'davivienda.wsgi.application'
 AUTH_USER_MODEL = 'form.User'
-JSIGNATURE_WIDTH = 500
-JSIGNATURE_HEIGHT = 200
+JSIGNATURE_WIDTH = 350
+JSIGNATURE_HEIGHT = 90
 
 
 

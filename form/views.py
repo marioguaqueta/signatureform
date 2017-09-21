@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.shortcuts import render
 from .forms import *
+from jsignature.utils import draw_signature
+import datetime
+from django.utils import timezone
 
 def login(request):
     if request.user.is_authenticated():
@@ -41,24 +44,24 @@ def register(request):
 
 
 def index(request):
-    registeruser=RegisterSignatureForm()
 
-    # if request.method == "POST":
-    #     registerpost = RegisterSignatureForm(request.POST)
-    #     print(registerpost.errors)
-    #     if registerpost.is_valid():
-    #       signature = registerpost.cleaned_data.get('signature')
-    #       if signature:
-    #         signature_picture = draw_signature(signature)
-    #         user = User.objects.create_user(username=registerpost.cleaned_data.get('email'),
-    #                              email=registerpost.cleaned_data.get('email'),
-    #                              first_name = registerpost.cleaned_data.get('first_name'),
-    #                              last_name = registerpost.cleaned_data.get('last_name'))
-    #         user.signature = signature_picture
-    #         return redirect('index')
-    #     else:
-    #         return render (request, 'form/registersignature.html',{'registeruser':registeruser, 'notvaliddata':True})
-    return render (request, 'form/registersignature.html',{'registeruser':registeruser})  
+  registeruser=SignatureForm()
+  if request.method == "POST":
+    signature = request.POST.get("signature", "")
+    signature_picture = draw_signature(signature)
+
+    user = AuthDiscountRouster.objects.create(
+          name=request.POST.get("name", ""),
+          identification=request.POST.get("identification", ""),
+          signature=request.POST.get("signature", ""),
+          code=request.POST.get("code", ""),
+          key=request.POST.get("key", ""),
+          legal_rep=request.POST.get("legal_rep", ""),
+          nit=request.POST.get("nit", ""),
+          signature_rep=request.POST.get("signature_rep", ""))
+
+    return redirect('index')
+  return render (request, 'form/registersignature.html',{'registeruser':registeruser})  
 
 
 
