@@ -28,6 +28,7 @@
 <body>
 
   <div id="outer" style="width:100%">
+    <button class="btn btn-danger" onclick="window.location.href='../logout'" style="float: right;margin-right: 20px; margin-top: 20px; ">Cerrar Sesión</button>
     <div id="inner">
       <h3>AUTORIZACIÓN DE DESCUENTO POR NÓMINA PARA FINANCIACIÓN DE PRIMAS Y RENOVACIONES</h3>
 
@@ -35,58 +36,60 @@
       <br>
       <br>
 
+      {% if notsignature %}
+      <br>
+      <div class="alert alert-danger">
+        <strong>Error!</strong> No ingreso la firma
+      </div>
+      <br>
+      {% endif %}
 
-      {{ registeruser.media }}
-      <form action="." method="POST">
-        {% csrf_token %}
+      {% if downloadpdf %}
+      <script type="text/javascript">
+        (function() {
+          var redirectWindow = window.open('http://'+window.location.host+'/viewform/', '_blank');
+          redirectWindow.location;
+       })();
+     </script>
+     {% endif %}
 
-        <p style="text-align: justify; width: 80%">
-          Yo&nbsp;{{registeruser.name}}&nbsp;mayor  de  edad,  identificado  (a)  con  la CC.{{registeruser.identification}}&nbsp; autorizo a Capitalizadora Bolívar S.A ó Seguros Bolívar S.A ó  
-          Seguros  Comerciales  Bolívar  S.A,  Asistencia  Bolívar  S.A.  ó  S
-          ociedades  Bolívar  S.A  ó  Seguridad 
-          Cia. Administradora de Fondos de Inversión S.A ó Prevención Técnica Ltda. Para que  descuente 
-          de mi salario, comisiones mensuales  y/o prestaciones sociales definitivas el valor de las primas de 
-          los seguros ofrecidos por S
-          eguros Bolívar S.A y Seguros Comerciales Bolívar S.A
-          <br>
-          <div  class="row">
+     {{ registeruser.media }}
+     <form action="." method="POST">
+      {% csrf_token %}
+      <p style="text-align: justify; width: 80%">
+        Yo&nbsp;{{registeruser.name}}&nbsp;mayor  de  edad,  identificado  (a)  con  la CC.{{registeruser.identification}}&nbsp; autorizo a Capitalizadora Bolívar S.A ó Seguros Bolívar S.A ó  
+        Seguros  Comerciales  Bolívar  S.A,  Asistencia  Bolívar  S.A.  ó  S
+        ociedades  Bolívar  S.A  ó  Seguridad 
+        Cia. Administradora de Fondos de Inversión S.A ó Prevención Técnica Ltda. Para que  descuente 
+        de mi salario, comisiones mensuales  y/o prestaciones sociales definitivas el valor de las primas de 
+        los seguros ofrecidos por S
+        eguros Bolívar S.A y Seguros Comerciales Bolívar S.A
+        <br>
+        <div  class="row">
 
-            <center><strong class="col-xs-1">Firma:</strong><div class="col-xs-6">{{registeruser.signature}}</div></center>
-          </div>
-          C.C No:  {{registeruser.identificationfrom}}
-          <br>
-          <br>
-          Código: {{registeruser.code}} ó Clave: {{registeruser.key}} 
-          <br>
-          <br>
-          Representante legal de la agencia:{{registeruser.legal_rep}} 
-          <br>
-          NIT: {{registeruser.nit}} 
-          <br>
-          <div  class="row">
+          <center><strong class="col-xs-1">Firma:</strong><div class="col-xs-6">{{registeruser.signature}}</div></center>
+        </div>
+        C.C No:  {{registeruser.identificationfrom}}
+        <br>
+        <br>
+        Código: {{registeruser.code}} ó Clave: {{registeruser.key}} 
+        <br>
+        <br>
+        Representante legal de la agencia:{{registeruser.legal_rep}} 
+        <br>
+        NIT: {{registeruser.nit}} 
+        <br>
+        <div  class="row">
 
-           <center> <strong class="col-xs-1">Firma Representante Legal:  </strong><div class="col-xs-6">{{registeruser.signature_rep}}</div></center>
-          </div>
-
-
-
-
-        </p>
-        <button  type="submit" class="btn btn-success">Enviar</button>
-      </form>
-    </div>
-  </div>
+         <center> <strong class="col-xs-1">Firma Representante Legal:  </strong><div class="col-xs-6">{{registeruser.signature_rep}}</div></center>
+       </div>
+     </p>
+     <button  type="submit" class="btn btn-success">Enviar</button>
+   </form>
+ </div>
+</div>
 
 
 </body>
 </html>
 
-
-
-<!--  autorizo a Capitalizadora Bolívar S.A ó Seguros Bolívar S.A ó  
-Seguros  Comerciales  Bolívar  S.A,  Asistencia  Bolívar  S.A.  ó  S
-ociedades  Bolívar  S.A  ó  Seguridad 
-Cia. Administradora de Fondos de Inversión S.A ó Prevención Técnica Ltda. Para que  descuente 
-de mi salario, comisiones mensuales  y/o prestaciones sociales definitivas el valor de las primas de 
-los seguros ofrecidos por S
-eguros Bolívar S.A y Seguros Comerciales Bolívar S.A -->
